@@ -1,22 +1,8 @@
-using Combinatorics
+p(x) = 1 - x + x^2 - x^3 + x^4 - x^5 + x^6 - x^7 + x^8 - x^9 + x^10
+q(x) = x^3
 
-function binom(n, pad)
-    if n == 0
-        return vcat([1],  zeros(Rational{Int64}, pad - 1))
-    else
-        return [stirlings1(n, n + 1 - k, true) for k in 0:pad - 1] .// factorial(n)
-    end
+function fit(f::Function, n::Int)
+    return sum((-1)^(n - k) * binomial(n, k) * k ÷ (n + 1 - k) * f(k) for k in 1:n)
 end
 
-function fits(a)
-    n = length(a)
-
-    basis = fill(0, n)
-
-    for i in 0:(n - 1)
-        coeffs = binom(i, n)
-        println(coeffs)
-    end
-end
-
-fits([0, 0, 0, 1])
+println(sum(fit(p, n) for n in 1:10))
