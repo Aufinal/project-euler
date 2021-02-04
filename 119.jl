@@ -8,7 +8,7 @@ function get_max(k)
 end
 
 l = []
-for k in 2:9
+@time for k in 2:9
     for n in Int(ceil(10^(1/k))):get_max(k)
         x = n^k
         if sum(digits(x)) == n
