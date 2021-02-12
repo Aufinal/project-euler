@@ -1,24 +1,21 @@
+include("pell-fermat.jl")
+
 function nugget(target)
-    a = 11
-    b = 5
-
-    c = 1
-    d = 1
-
-    e = 4
-    f = 2
-
-    l = [11]
+    t, u = pell_fermat(5)
+    sols = generalized_pf(5, -4)
+    l = Set{Int}()
 
     while length(l) < target
-        a, b = 9a + 20b, 4a+9b
-        c, d = 9c + 20d, 4c+9d
-        e, f = 9*e+20f, 4*e+9f
-        to_add = [a, c, e]
-        append!(l, filter(x -> x % 5 == 1, to_add))
+        for i in 1:length(sols)
+            a, b = sols[i]
+            a, b = t * a + 5 * u * b, u * a + t * b
+            if a % 5 == 1
+                push!(l, a)
+            end
+            sols[i] = (a, b)
+        end
     end
-
-    return div.(sort(l) .- 1, 5)[target]
+    return div.(sort(collect(l)) .- 1, 5)[target]
 end
 
 println(nugget(15))
