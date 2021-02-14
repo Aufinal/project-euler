@@ -1,6 +1,6 @@
 using LinearAlgebra
 
-function kahane(v)
+function kadane(v)
     cur_best = 0
     tot_best = 0
     for i in v
@@ -33,12 +33,12 @@ function find_maxsum(arr)
     n = size(arr)[1]
     rarr = reverse(arr, dims=2)
     for k in 1:n
-        mline = kahane(arr[k, :])
-        mcol = kahane(arr[:, k])
-        mpdiag = kahane(diag(arr, k - 1))
-        mndiag = kahane(diag(arr, -k + 1))
-        mpadiag = kahane(diag(rarr, k - 1))
-        mnadiag = kahane(diag(rarr, -k + 1))
+        mline = kadane(arr[k, :])
+        mcol = kadane(arr[:, k])
+        mpdiag = kadane(diag(arr, k - 1))
+        mndiag = kadane(diag(arr, -k + 1))
+        mpadiag = kadane(diag(rarr, k - 1))
+        mnadiag = kadane(diag(rarr, -k + 1))
 
         res = max(res, mline, mcol, mpdiag, mndiag, mpadiag, mnadiag)
     end
